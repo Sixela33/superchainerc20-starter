@@ -83,6 +83,8 @@ export const Bridge = () => {
     }
   }
 
+  // TODO: IMPLEMENT THIS
+
   const { isLoading: isReceiptLoading } = useWaitForTransactionReceipt({
     hash,
   })

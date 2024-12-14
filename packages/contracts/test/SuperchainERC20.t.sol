@@ -25,7 +25,7 @@ contract SuperchainERC20Test is Test {
 
     /// @notice Sets up the test suite.
     function setUp() public {
-        superchainERC20 = new L2NativeSuperchainERC20(address(this), "Test", "TEST", 18);
+        superchainERC20 = new L2NativeSuperchainERC20(address(this), "Test", "TEST", 18, 10000000000000000000, 1000000000000);
     }
 
     /// @notice Helper function to setup a mock and expect a call to it.

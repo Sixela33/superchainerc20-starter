@@ -1,11 +1,11 @@
 [deploy_config]
 salt = "ethers phoenix"
-chains = ["op_chain_a", "sepolia/base"]
+chains = ["sepolia/op", "sepolia/base"]
 
 [token]
 owner_address = "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
 name = "TestSuperchainERC20"
 symbol = "TSU"
 decimals = 18
-unit_price_ether = 100000000000000000
-max_supply = 100000000000000000
+unit_price_ether = 1000000000000000
+max_supply = 1000000000000000
