@@ -49,8 +49,10 @@ contract SuperchainERC20Deployer is Script {
         string memory symbol = vm.parseTomlString(deployConfig, ".token.symbol");
         uint256 decimals = vm.parseTomlUint(deployConfig, ".token.decimals");
         require(decimals <= type(uint8).max, "decimals exceeds uint8 range");
+        uint256 maxSupply = vm.parseTomlUint(deployConfig, ".token.max_supply");
+        uint256 unitPriceEther = vm.parseTomlUint(deployConfig, ".token.unit_price_ether");
         bytes memory initCode = abi.encodePacked(
-            type(L2NativeSuperchainERC20).creationCode, abi.encode(ownerAddr_, name, symbol, uint8(decimals))
+            type(L2NativeSuperchainERC20).creationCode, abi.encode(ownerAddr_, name, symbol, uint8(decimals), maxSupply, unitPriceEther)
         );
         address preComputedAddress = vm.computeCreate2Address(_implSalt(), keccak256(initCode));
         if (preComputedAddress.code.length > 0) {
@@ -59,7 +61,7 @@ contract SuperchainERC20Deployer is Script {
             );
             addr_ = preComputedAddress;
         } else {
-            addr_ = address(new L2NativeSuperchainERC20{salt: _implSalt()}(ownerAddr_, name, symbol, uint8(decimals)));
+            addr_ = address(new L2NativeSuperchainERC20{salt: _implSalt()}(ownerAddr_, name, symbol, uint8(decimals), maxSupply, unitPriceEther));
             console.log("Deployed L2NativeSuperchainERC20 at address: ", addr_, "on chain id: ", block.chainid);
         }
     }
