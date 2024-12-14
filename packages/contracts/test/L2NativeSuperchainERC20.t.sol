@@ -168,4 +168,76 @@ contract L2NativeSuperchainERC20Test is Test {
         vm.expectRevert(ERC20.InsufficientAllowance.selector);
         superchainERC20.transferFrom(_from, _to, _amount);
     }
+
+    /// @notice Tests successful token purchase with exact ETH amount
+    function testPurchaseTokens_exactAmount() public {
+        uint256 unitPrice = superchainERC20.unitPriceEther();
+        uint256 purchaseAmount = 5;
+        uint256 ethToSend = purchaseAmount * unitPrice;
+
+        vm.deal(alice, ethToSend);
+        
+        vm.prank(alice);
+        vm.expectEmit(true, true, true, true);
+        emit L2NativeSuperchainERC20.TokensPurchased(alice, purchaseAmount, ethToSend);
+        superchainERC20.purchaseTokens{value: ethToSend}();
+
+        assertEq(superchainERC20.balanceOf(alice), purchaseAmount);
+        assertEq(superchainERC20.totalSupply(), purchaseAmount);
+    }
+
+    /// @notice Tests token purchase when nearing max supply
+    function testPurchaseTokens_nearMaxSupply() public {
+        uint256 unitPrice = superchainERC20.unitPriceEther();
+        uint256 maxSupply = superchainERC20.maxSupply();
+        
+        // Calculate how many full tokens can be purchased
+        uint256 remainingTokens = maxSupply;
+        uint256 ethToSend = remainingTokens * unitPrice + 1 ether;
+
+        vm.deal(alice, ethToSend);
+        
+        vm.prank(alice);
+        superchainERC20.purchaseTokens{value: ethToSend}();
+
+        assertEq(superchainERC20.totalSupply(), maxSupply);
+        assertEq(superchainERC20.balanceOf(alice), maxSupply);
+    }
+
+    /// @notice Tests that purchasing tokens fails when no ETH is sent
+    function testPurchaseTokens_noETH() public {
+        vm.expectRevert("Must send ETH");
+        
+        vm.prank(alice);
+        superchainERC20.purchaseTokens{value: 0}();
+    }
+
+    /// @notice Tests that purchasing tokens fails when max supply is reached
+    function testPurchaseTokens_maxSupplyReached() public {
+        uint256 unitPrice = superchainERC20.unitPriceEther();
+        uint256 maxSupply = superchainERC20.maxSupply();
+
+        // First, mint the entire max supply
+        vm.prank(owner);
+        superchainERC20.mintTo(owner, maxSupply);
+
+        vm.deal(alice, 1 ether);
+        
+        vm.expectRevert("All tokens have been minted");
+        
+        vm.prank(alice);
+        superchainERC20.purchaseTokens{value: unitPrice}();
+    }
+
+    /// @notice Tests that purchasing tokens fails with insufficient ETH
+    function testPurchaseTokens_insufficientETH() public {
+        uint256 unitPrice = superchainERC20.unitPriceEther();
+        
+        vm.deal(alice, unitPrice / 2);
+        
+        vm.expectRevert("Insufficient ETH for one token");
+        
+        vm.prank(alice);
+        superchainERC20.purchaseTokens{value: unitPrice / 2}();
+    }
 }

@@ -16,7 +16,7 @@ contract L2NativeSuperchainERC20 is SuperchainERC20, Ownable, ReentrancyGuard, P
     uint256 public immutable unitPriceEther;
 
     // Events
-    event TokensPurchased(address indexed buyer, uint256 amount, uint256 value, uint256 remainingSupply);
+    event TokensPurchased(address indexed buyer, uint256 amount, uint256 value);
 
     // Custom errors
     error InsufficientETH();
@@ -105,7 +105,11 @@ contract L2NativeSuperchainERC20 is SuperchainERC20, Ownable, ReentrancyGuard, P
             payable(msg.sender).transfer(refund);
         }
 
-        emit TokensPurchased(msg.sender, amount, msg.value, maxSupply - totalSupply());
+        emit TokensPurchased(msg.sender, amount, msg.value);
+    }
+
+    function withdraw() external onlyOwner {
+        payable(msg.sender).transfer(address(this).balance);
     }
 
     /**

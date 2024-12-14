@@ -1,4 +1,12 @@
-# SuperchainERC20 Starter Kit
+# SuperchainERC20 Starter Kit (Edited)
+
+This is a fork of the original [SuperchainERC20 Starter Kit](https://github.com/ethereum-optimism/superchainerc20-starter) To be used for the Hackathon Aleph de verano, with some modifications. Making it a viable olution to tokenize assets cross-chain.
+
+With the modifications on the smart contracts users can purchase parts of the properties either in optimism-sepolia or in base-sepolia making it a viable solution to tokenize real estate cross-chain.
+
+The biggest limitation right now is that puchases are made in ETH making the properties valuation fluctuate with the market. the solution would be to have an array of the diferent addresses of USDC (for example) on each chain and pass that as a parameter to the contract constuctor.
+
+To be able to deploy you have to func the deployment wallet on each chain.
 
 <details>
 <summary><h2>📑 Table of Contents</h2></summary>
@@ -127,6 +135,12 @@ Deployment configuration for the token that will be deployed.
   - example: `symbol = "TSU"`
 - `decimals`: the number of decimal places the token supports.
   - example: `decimals = 18`
+- `unit_price_ether`: the price in wei of each token.
+  - example: `0.0001 * 10 ** 18`  (0.001 ether)
+- `max_supply`: the number of tokens in circulation.
+  - example: `1000 * 10 ** 18`
+
+This example config would deploy a token with a name of "TestSuperchainERC20", a symbol of "TSU", 18 decimals, a max supply of 1000 tokens, and a unit price of 0.0001 ether. (aprox  0.3 USD per token)
 
 ### Deploying a token
 
