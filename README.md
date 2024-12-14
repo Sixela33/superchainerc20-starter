@@ -1,12 +1,16 @@
-# SuperchainERC20 Starter Kit (Edited)
+# Propertiez
 
-This is a fork of the original [SuperchainERC20 Starter Kit](https://github.com/ethereum-optimism/superchainerc20-starter) To be used for the Hackathon Aleph de verano, with some modifications. Making it a viable olution to tokenize assets cross-chain.
+![Image](images/image.png)
 
-With the modifications on the smart contracts users can purchase parts of the properties either in optimism-sepolia or in base-sepolia making it a viable solution to tokenize real estate cross-chain.
+## Introduction
 
-The biggest limitation right now is that puchases are made in ETH making the properties valuation fluctuate with the market. the solution would be to have an array of the diferent addresses of USDC (for example) on each chain and pass that as a parameter to the contract constuctor.
+Propertiez is a fork of the original [SuperchainERC20 Starter Kit](https://github.com/ethereum-optimism/superchainerc20-starter), developed as part of the Aleph de Verano Hackathon. Our goal is to provide a practical, cross-chain solution for tokenizing real-world assets—specifically real estate. By enabling fractionalized property ownership on both Optimism-Sepolia and Base-Sepolia test networks, Propertiez demonstrates how assets can be seamlessly represented and traded across different chains.
 
-To be able to deploy you have to func the deployment wallet on each chain.
+Currently, all property purchases are made in ETH, causing valuations to fluctuate with market conditions. Our next step is to introduce stable asset pricing by integrating a list of stablecoin contracts (e.g., USDC) across multiple chains. These addresses would be passed as parameters to the contract constructor, ensuring more predictable and stable valuations.
+
+Note: Before deploying, ensure that your deployment wallet is funded on each respective chain.
+
+
 
 <details>
 <summary><h2>📑 Table of Contents</h2></summary>
