@@ -7,7 +7,7 @@
 Propertiez is a fork of the original [SuperchainERC20 Starter Kit](https://github.com/ethereum-optimism/superchainerc20-starter), developed as part of the Aleph de Verano Hackathon. Our goal is to provide a practical, cross-chain solution for tokenizing real-world assets—specifically real estate. By enabling fractionalized property ownership on both Optimism-Sepolia and Base-Sepolia test networks, Propertiez demonstrates how assets can be seamlessly represented and traded across different chains.
 
 Currently, all property purchases are made in ETH, causing valuations to fluctuate with market conditions. Our next step is to introduce stable asset pricing by integrating a list of stablecoin contracts (e.g., USDC) across multiple chains. These addresses would be passed as parameters to the contract constructor, ensuring more predictable and stable valuations.
-
+ demo video: https://www.loom.com/share/d0bb30b06858448ea6474bec6ae81f50
 Note: Before deploying, ensure that your deployment wallet is funded on each respective chain.
 
 
